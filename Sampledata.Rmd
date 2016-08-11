@@ -51,5 +51,7 @@ x5 <- subset(data.1, Type == "Visit" )
  print(net)
  
 ```
+Not sure to use which variables in the lm() function. So far I've covered hierarchical and K- means clusturing which isn't applicable here.
 
+Thank You
 
