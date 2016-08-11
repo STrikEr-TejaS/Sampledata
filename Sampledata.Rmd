@@ -1,0 +1,55 @@
+---
+title: "SampleData"
+output: html_document
+---
+
+This is an R Markdown document.
+
+
+```{r}
+library(xlsx)
+data11 <- read.xlsx("SampleData.xlsx", sheetName = "SampleData1", header = TRUE)
+data22 <- read.xlsx("SampleData.xlsx", sheetName = "SampleData2", header = TRUE)
+
+
+data2 = data22[complete.cases(data22),]
+data1 = data11[complete.cases(data11),]
+data1$User = NA
+
+data2$User <- as.character(data2$User)
+
+
+
+for(i in data1[,1])
+{
+  for(q in data2[,1])
+  {
+      if(data1$Id[i] == data2$Id[q])
+      {
+  data1$User[i] = data2$User[q]
+      }
+  }
+}
+
+data.1 = data1[complete.cases(data1),]
+summary(data1)
+```
+
+```{r, echo=FALSE}
+ x1 <- subset(data.1, Type == "Email" )
+ x2 <- subset(data.1, Type == "Update" )
+x3 <- subset(data.1, Type == "NA" )
+x4 <- subset(data.1, Type == "Call" )
+x5 <- subset(data.1, Type == "Visit" )
+```
+
+```{r}
+ newd <- table(data1$Type, data1$User)
+ net = as.data.frame.matrix(newd)
+ net$Total = net$A1001 + net$A1002 + net$A1003 + net$A1004 + net$A1005
+ 
+ print(net)
+ 
+```
+
+
